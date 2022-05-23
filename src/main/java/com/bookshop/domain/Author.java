@@ -1,6 +1,5 @@
 package com.bookshop.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -15,13 +14,13 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Author {
-	
+
 	private Integer id;
 
 	private String name;
-	
+
 	private String email;
-	
-	private List<Book> books = new ArrayList<>(10);
+
+	private List<Book> books;
 
 }
