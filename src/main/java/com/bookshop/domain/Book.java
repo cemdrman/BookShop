@@ -2,6 +2,12 @@ package com.bookshop.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,13 +19,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
+@Entity
 public class Book {
-	
-	private Integer id;
-	
-	private String name;
-	
-	private BigDecimal price;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	private String name;
+
+	private BigDecimal price;
+	
+	private Integer stock;
+
+	@ManyToOne
 	private Author author;
 }
