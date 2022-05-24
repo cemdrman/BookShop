@@ -1,6 +1,8 @@
 package com.bookshop.dto.response;
 
-import java.math.BigDecimal;
+import java.util.List;
+
+import com.bookshop.domain.Book;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +15,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class BookResponse {
-
+public class AuthorResponse {
+	
 	private String name;
 
-	private BigDecimal price;
+	private String email;
 
-	private Integer stock;
-
-	private AuthorResponse author;
+	private List<Book> books;
 
 }

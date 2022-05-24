@@ -1,26 +1,22 @@
 package com.bookshop.dto.response;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
-public class BookResponse {
+public class PaginationBookResponse {
 
-	private String name;
+	private int totalPages;
+	private long totalElements;
+	private boolean last;
 
-	private BigDecimal price;
-
-	private Integer stock;
-
-	private AuthorResponse author;
+	private List<BookResponse> books;
 
 }

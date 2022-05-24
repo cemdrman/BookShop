@@ -20,22 +20,22 @@ INSERT INTO public.book(
 	
 INSERT INTO public.book(
 	id, name, price, author_id, stock)
-	VALUES (1, 'book2', 25, 1, 28);
+	VALUES (2, 'book2', 25, 1, 28);
 	
 INSERT INTO public.book(
 	id, name, price, author_id, stock)
-	VALUES (1, 'boo3', 35, 1, 18);	
+	VALUES (3, 'boo3', 35, 1, 18);	
 
 		
 INSERT INTO public.book(
 	id, name, price, author_id, stock)
-	VALUES (1, 'book4', 15, 2, 38);
+	VALUES (4, 'book4', 15, 2, 38);
 	
 	
 INSERT INTO public.book(
 	id, name, price, author_id, stock)
-	VALUES (1, 'book5', 25, 2, 28);
+	VALUES (5, 'book5', 25, 2, 28);
 	
 INSERT INTO public.book(
 	id, name, price, author_id, stock)
-	VALUES (1, 'book6', 35, 2, 18);	
+	VALUES (6, 'book6', 35, 2, 18);	
