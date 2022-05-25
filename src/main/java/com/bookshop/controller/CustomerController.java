@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/customers")
 @RequiredArgsConstructor
 public class CustomerController {
-	
+
 	private final CustomerService customerService;
-	
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ServiceReponse<List<CustomerResponse>>> getUser() {
 		return ResponseBuilder.success(customerService.getAllCustomers(), HttpStatus.OK);
@@ -39,7 +39,7 @@ public class CustomerController {
 	}
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceReponse<CustomerResponse>> createUser(@RequestBody CustomerRequset customerRequest) throws Exception {
+	public ResponseEntity<ServiceReponse<CustomerResponse>> createUser(@RequestBody CustomerRequset customerRequest) {
 		return ResponseBuilder.success(customerService.create(customerRequest), HttpStatus.CREATED);
 	}
 

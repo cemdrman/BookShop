@@ -1,4 +1,4 @@
-package com.bookshop.dto.response;
+package com.bookshop.dto.request;
 
 import java.math.BigDecimal;
 
@@ -13,14 +13,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class BookResponse {
+public class BookRequest {
+
+	private long id;
 
 	private String name;
 
 	private BigDecimal price;
 
 	private Integer quantity;
-
-	private AuthorResponse author;
 
 }

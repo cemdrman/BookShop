@@ -23,14 +23,14 @@ import lombok.ToString;
 public class Book {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String name;
 
 	private BigDecimal price;
-	
-	private Integer stock;
+
+	private Integer quantity;
 
 	@ManyToOne
 	private Author author;

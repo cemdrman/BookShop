@@ -4,7 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bookshop.domain.Book;
 
-public interface BookRepository extends PagingAndSortingRepository<Book, Integer> {
-	
+public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
 }

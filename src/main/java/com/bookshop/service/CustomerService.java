@@ -8,6 +8,7 @@ import com.bookshop.converter.CustomerConverter;
 import com.bookshop.domain.Customer;
 import com.bookshop.dto.request.CustomerRequset;
 import com.bookshop.dto.response.CustomerResponse;
+import com.bookshop.exception.CustomerNotFoundException;
 import com.bookshop.repository.CustomerRespository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,11 @@ public class CustomerService {
 		return null;
 	}
 
-	public CustomerResponse getById(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomerResponse getById(Long id) {
+		Customer customer = customerRespository.findById(id)
+				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
+
+		return converter.convert(customer);
 	}
 
 	public CustomerResponse create(CustomerRequset customerRequest) {

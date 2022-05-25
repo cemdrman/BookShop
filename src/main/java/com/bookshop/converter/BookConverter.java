@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.bookshop.domain.Book;
+import com.bookshop.dto.request.BookRequest;
 import com.bookshop.dto.response.AuthorResponse;
 import com.bookshop.dto.response.BookResponse;
 
@@ -21,7 +22,7 @@ public class BookConverter {
 		return bookList;
 	}
 
-	private BookResponse convert(Book book) {
+	public BookResponse convert(Book book) {
 		//// @formatter:off
  
 		return BookResponse.builder()
@@ -31,10 +32,22 @@ public class BookConverter {
 						.build())
 				.name(book.getName())
 				.price(book.getPrice())
-				.stock(book.getStock())
+				.quantity(book.getQuantity())
 				.build();
 		// @formatter:on
 
+	}
+
+	public List<Book> convert(List<BookRequest> books) {
+		List<Book> bookList = new ArrayList<>();
+
+		books.forEach(book -> bookList.add(convert(book)));
+
+		return bookList;
+	}
+
+	private Book convert(BookRequest book) {
+		return Book.builder().id(book.getId()).name(book.getName()).build();
 	}
 
 }

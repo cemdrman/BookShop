@@ -11,6 +11,7 @@ import com.bookshop.converter.BookConverter;
 import com.bookshop.domain.Book;
 import com.bookshop.dto.response.BookResponse;
 import com.bookshop.dto.response.PaginationBookResponse;
+import com.bookshop.exception.BookNotFoundException;
 import com.bookshop.repository.BookRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -45,9 +46,11 @@ public class BookService {
 
 	}
 
-	public BookResponse getById(Integer id) {
+	public BookResponse getById(long id) {
 
-		return null;
+		Book book = repository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+
+		return converter.convert(book);
 	}
 
 }
