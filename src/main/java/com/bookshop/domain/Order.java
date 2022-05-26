@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
+	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -40,6 +43,7 @@ public class Order {
 	private List<Book> books;
 
 	@OneToOne
+	@JoinColumn(name = "book_id", insertable = false, updatable = false)
 	private Customer customer;
 
 }
