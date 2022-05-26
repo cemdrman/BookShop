@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class CustomerAuthentication implements Authentication {
 
 	@Getter
-	private final IdentityUser identityUser;
+	private final IdentityCustomer identityUser;
 	private boolean isAuthenticated = true;
 
 	@Override

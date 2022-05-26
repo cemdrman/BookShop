@@ -1,12 +1,12 @@
 package com.bookshop.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookshop.dto.request.OrderRequest;
@@ -24,19 +24,23 @@ import lombok.RequiredArgsConstructor;
 public class OrderController {
 
 	private final OrderService service;
-//
-//	@GetMapping
-//	public ResponseEntity<ServiceReponse<PagingResponse<OrderResponse>>> getAll(int page, int size) {
-//		return ResponseBuilder.success(service.getAll(page, size), HttpStatus.OK);
-//	}
-//
-//	@GetMapping(value = "/customers/{id}")
-//	public ResponseEntity<ServiceReponse<OrderResponse>> getByCustomerId(@PathVariable Integer id) {
-//		return ResponseBuilder.success(service.getByCustomerId(id), HttpStatus.OK);
-//	}
+
+	@GetMapping
+	public ServiceReponse<PagingResponse<OrderResponse>> getAll(
+			@RequestParam(defaultValue = "0", name = "page") int page,
+			@RequestParam(defaultValue = "5", name = "size") int size) {
+		return ResponseBuilder.success(service.getAll(page, size), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/customers/{id}")
+	public ServiceReponse<PagingResponse<OrderResponse>> getByCustomerId(@PathVariable Integer id,
+			@RequestParam(defaultValue = "0", name = "page") int page,
+			@RequestParam(defaultValue = "5", name = "size") int size) {
+		return ResponseBuilder.success(service.getAllByCustomerId(page, size, id), HttpStatus.OK);
+	}
 
 	@PostMapping
-	public ResponseEntity<ServiceReponse<OrderResponse>> create(@RequestBody OrderRequest request) {
+	public ServiceReponse<OrderResponse> create(@RequestBody OrderRequest request) {
 		return ResponseBuilder.success(service.create(request), HttpStatus.CREATED);
 	}
 

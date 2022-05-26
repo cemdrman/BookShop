@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,22 +28,22 @@ public class CustomerController {
 	private final CustomerService customerService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceReponse<List<CustomerResponse>>> getUser() {
+	public ServiceReponse<List<CustomerResponse>> getUser() {
 		return ResponseBuilder.success(customerService.getAllCustomers(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceReponse<CustomerResponse>> getUserById(@PathVariable(value = "id") Long userId) {
+	public ServiceReponse<CustomerResponse> getUserById(@PathVariable(value = "id") Long userId) {
 		return ResponseBuilder.success(customerService.getById(userId), HttpStatus.OK);
 	}
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceReponse<CustomerResponse>> createUser(@RequestBody CustomerRequset customerRequest) {
+	public ServiceReponse<CustomerResponse> createUser(@RequestBody CustomerRequset customerRequest) {
 		return ResponseBuilder.success(customerService.create(customerRequest), HttpStatus.CREATED);
 	}
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceReponse<CustomerResponse>> updateUser(@RequestBody CustomerRequset userRequest) {
+	public ServiceReponse<CustomerResponse> updateUser(@RequestBody CustomerRequset userRequest) {
 		return ResponseBuilder.success(customerService.update(userRequest), HttpStatus.OK);
 	}
 

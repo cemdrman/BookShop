@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.bookshop.dto.CustomerDto;
-import com.bookshop.dto.IdentityUser;
+import com.bookshop.dto.IdentityCustomer;
 
 import io.jsonwebtoken.Claims;
 import lombok.val;
@@ -12,7 +12,7 @@ import lombok.val;
 @Component
 public class IdentityUserConverter {
 
-	public IdentityUser convert(Claims claims) {
+	public IdentityCustomer convert(Claims claims) {
 
 		//// @formatter:off
   
@@ -23,7 +23,7 @@ public class IdentityUserConverter {
 				.email(getStringValue(claims, "email"))
 				.build();
 		// @formatter:on
-		return IdentityUser.builder().customer(customer).build();
+		return IdentityCustomer.builder().customer(customer).build();
 	}
 
 	private String getStringValue(Claims claims, String key) {

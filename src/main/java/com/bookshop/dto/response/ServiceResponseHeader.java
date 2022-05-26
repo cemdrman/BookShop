@@ -5,11 +5,11 @@ import org.springframework.http.HttpStatus;
 public class ServiceResponseHeader {
 
 	private HttpStatus statusCode;
-	private String errorMessage;
+	private String message;
 
 	public ServiceResponseHeader(HttpStatus status, String message) {
 		this.statusCode = status;
-		this.errorMessage = message;
+		this.message = message;
 	}
 
 	public HttpStatus getStatusCode() {
@@ -20,12 +20,12 @@ public class ServiceResponseHeader {
 		this.statusCode = statusCode;
 	}
 
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public void setMessage(String errorMessage) {
+		this.message = errorMessage;
 	}
 
 }

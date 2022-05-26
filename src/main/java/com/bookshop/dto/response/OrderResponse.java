@@ -1,17 +1,20 @@
 package com.bookshop.dto.response;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
-import com.bookshop.domain.Order;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderResponse {
 
-	public OrderResponse(Order order) {
-		// TODO Auto-generated constructor stub
-	}
+	private List<BookResponse> books;
 
-	public OrderResponse(Page<Order> orders) {
-		// TODO Auto-generated constructor stub
-	}
+	private CustomerResponse customer;
 
 }

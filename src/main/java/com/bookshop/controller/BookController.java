@@ -1,7 +1,6 @@
 package com.bookshop.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +23,13 @@ public class BookController {
 	private final BookService bookService;
 
 	@GetMapping
-	public ResponseEntity<ServiceReponse<PaginationBookResponse>> getAllBooks(
-			@RequestParam(defaultValue = "0", name = "page") int page,
+	public ServiceReponse<PaginationBookResponse> getAllBooks(@RequestParam(defaultValue = "0", name = "page") int page,
 			@RequestParam(defaultValue = "5", name = "size") int size) {
 		return ResponseBuilder.success(bookService.getAll(page, size), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ServiceReponse<BookResponse>> getAllId(@PathVariable long id) {
+	public ServiceReponse<BookResponse> getAllId(@PathVariable long id) {
 		return ResponseBuilder.success(bookService.getById(id), HttpStatus.OK);
 	}
 

@@ -50,4 +50,12 @@ public class BookConverter {
 		return Book.builder().id(book.getId()).name(book.getName()).build();
 	}
 
+	public List<BookResponse> convertToResponse(List<Book> books) {
+		List<BookResponse> bookList = new ArrayList<>();
+
+		books.forEach(book -> bookList.add(convert(book)));
+
+		return bookList;
+	}
+
 }
