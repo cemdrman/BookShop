@@ -39,6 +39,11 @@ public class OrderController {
 		return ResponseBuilder.success(service.getAllByCustomerId(page, size, id), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/{id}")
+	public ServiceReponse<OrderResponse> getById(@PathVariable Integer id) {
+		return ResponseBuilder.success(service.getById(id), HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ServiceReponse<OrderResponse> create(@RequestBody OrderRequest request) {
 		return ResponseBuilder.success(service.create(request), HttpStatus.CREATED);

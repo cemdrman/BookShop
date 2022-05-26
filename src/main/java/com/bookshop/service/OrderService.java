@@ -1,7 +1,9 @@
 package com.bookshop.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -17,19 +19,23 @@ import com.bookshop.domain.Book;
 import com.bookshop.domain.Customer;
 import com.bookshop.domain.Order;
 import com.bookshop.domain.enums.OrderStatus;
+import com.bookshop.dto.request.BookRequest;
 import com.bookshop.dto.request.OrderRequest;
 import com.bookshop.dto.response.OrderResponse;
 import com.bookshop.dto.response.PagingResponse;
 import com.bookshop.exception.BookNotFoundException;
+import com.bookshop.exception.BookShopException;
 import com.bookshop.exception.CustomerNotFoundException;
 import com.bookshop.repository.BookRepository;
 import com.bookshop.repository.CustomerRespository;
 import com.bookshop.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
 	private final OrderRepository orderRepository;
@@ -57,21 +63,13 @@ public class OrderService {
 		Customer customer = customerRespository.findById(request.getCustomerId())
 				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
 
-		List<Book> orderBooks = new ArrayList<>();
+		Map<Integer, Integer> bookQuantityMap = prepareBookQuantityMap(request.getBooks());
 
-		request.getBooks().forEach(bookRequest -> {
-			Book book = bookRepository.findById(bookRequest.getId())
-					.orElseThrow(() -> new BookNotFoundException("book not found"));
-			orderBooks.add(book);
-		});
+		bookQuantityMap.keySet().forEach(this::decreaseQuantity);
 
-		Order order = Order.builder().books(orderBooks).customer(customer).status(OrderStatus.COMPLETED).build();
+		List<Book> orderedBooks = findOrderedBooks(request.getBooks());
 
-		// istenilen quantity kadar var mı? stok kontrol
-		// quantitiy düşür, update et.
-		// istenen quantity değerini dön
-
-		Order savedOrder = orderRepository.save(order);
+		Order savedOrder = orderRepository.save(prepareOrder(customer, orderedBooks));
 
 		//// @formatter:off
 		return OrderResponse.builder()
@@ -82,12 +80,57 @@ public class OrderService {
 
 	}
 
+	private List<Book> findOrderedBooks(List<BookRequest> books) {
+		List<Book> orderedBooks = new ArrayList<>();
+		books.forEach(book -> {
+			Book foundBook = bookRepository.findById(book.getId()).get();
+			foundBook.setQuantity(book.getQuantity());
+			orderedBooks.add(foundBook);
+		});
+		return orderedBooks;
+	}
+
+	private Order prepareOrder(Customer customer, List<Book> books) {
+		//// @formatter:off
+		return Order.builder()
+				.books(books)
+				.customer(customer)
+				.status(OrderStatus.PENDING)
+				.build();
+
+		// @formatter:on
+
+	}
+
+	private void decreaseQuantity(Integer bookId) {
+		Book foundBook = bookRepository.findById(bookId).get();
+		foundBook.setQuantity(Math.subtractExact(foundBook.getQuantity(), defaultSize));
+		bookRepository.save(foundBook);
+	}
+
+	private Map<Integer, Integer> prepareBookQuantityMap(List<BookRequest> bookRequests) {
+
+		Map<Integer, Integer> bookQuantityMap = new HashMap<>();
+
+		bookRequests.forEach(bookRequest -> {
+			Book book = bookRepository.findById(bookRequest.getId())
+					.orElseThrow(() -> new BookNotFoundException("book not found"));
+			bookQuantityMap.put(book.getId(), book.getQuantity());
+		});
+		return bookQuantityMap;
+	}
+
 	public PagingResponse<OrderResponse> getAllByCustomerId(int page, int size, Integer id) {
 		size = size == 0 ? defaultSize : size;
 		Page<Order> orderList = orderRepository.findAllByCustomer_Id(PageRequest.of(page, size), id);
 
 		return orderConverter.applyPage(orderList);
 
+	}
+
+	public OrderResponse getById(Integer id) {
+		Order order = orderRepository.findById(id).orElseThrow(() -> new BookShopException("order.not.found"));
+		return orderConverter.convert(order);
 	}
 
 }
