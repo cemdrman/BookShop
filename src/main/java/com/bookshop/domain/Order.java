@@ -31,7 +31,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	private Integer id;
 
 	private OrderStatus status;
 

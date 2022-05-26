@@ -1,7 +1,5 @@
 package com.bookshop.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.bookshop.converter.CustomerConverter;
@@ -22,12 +20,7 @@ public class CustomerService {
 	private final CustomerRespository customerRespository;
 	private final CustomerConverter converter;
 
-	public List<CustomerResponse> getAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public CustomerResponse getById(Long id) {
+	public CustomerResponse getById(Integer id) {
 		Customer customer = customerRespository.findById(id)
 				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
 
@@ -37,11 +30,6 @@ public class CustomerService {
 	public CustomerResponse create(CustomerRequset customerRequest) {
 		Customer customer = customerRespository.save(converter.convert(customerRequest));
 		return converter.convert(customer);
-	}
-
-	public CustomerResponse update(CustomerRequset userRequest) {
-
-		return null;
 	}
 
 	public Customer login(AuthRequest request) {

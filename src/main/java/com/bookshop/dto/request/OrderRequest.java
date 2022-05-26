@@ -17,6 +17,6 @@ public class OrderRequest {
 
 	private List<BookRequest> books;
 
-	private long customerId;
+	private Integer customerId;
 
 }

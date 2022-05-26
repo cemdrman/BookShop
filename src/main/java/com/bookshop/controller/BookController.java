@@ -29,7 +29,7 @@ public class BookController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ServiceReponse<BookResponse> getAllId(@PathVariable long id) {
+	public ServiceReponse<BookResponse> getAllId(@PathVariable Integer id) {
 		return ResponseBuilder.success(bookService.getById(id), HttpStatus.OK);
 	}
 

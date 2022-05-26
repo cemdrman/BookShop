@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class BookRequest {
 
-	private long id;
+	private Integer id;
 
 	private String name;
 

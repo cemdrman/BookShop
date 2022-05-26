@@ -46,7 +46,7 @@ public class BookService {
 
 	}
 
-	public BookResponse getById(long id) {
+	public BookResponse getById(Integer id) {
 
 		Book book = repository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
 
