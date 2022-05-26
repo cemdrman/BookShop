@@ -26,5 +26,10 @@ public class BookShopExceptionHandler {
 	public final <T> ResponseEntity<ServiceReponse<T>> handle(BookNotFoundException ex, WebRequest request) {
 		return ResponseBuilder.failure(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(LoginFailedException.class)
+	public final <T> ResponseEntity<ServiceReponse<T>> handle(LoginFailedException ex, WebRequest request) {
+		return ResponseBuilder.failure(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
+	}
 
 }

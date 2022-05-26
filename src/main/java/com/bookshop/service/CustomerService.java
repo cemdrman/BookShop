@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.bookshop.converter.CustomerConverter;
 import com.bookshop.domain.Customer;
+import com.bookshop.dto.request.AuthRequest;
 import com.bookshop.dto.request.CustomerRequset;
 import com.bookshop.dto.response.CustomerResponse;
 import com.bookshop.exception.CustomerNotFoundException;
+import com.bookshop.exception.LoginFailedException;
 import com.bookshop.repository.CustomerRespository;
 
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,16 @@ public class CustomerService {
 	public CustomerResponse update(CustomerRequset userRequest) {
 
 		return null;
+	}
+
+	public Customer login(AuthRequest request) {
+		Customer customer = customerRespository.findByEmail(request.getEmail())
+				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
+
+		if (!customer.getPassword().equals(request.getPassword())) {
+			throw new LoginFailedException("email or password are wrong");
+		}
+		return customer;
 	}
 
 }
