@@ -16,13 +16,8 @@ public class BookShopExceptionHandler {
 		return ResponseBuilder.failure(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(CustomerNotFoundException.class)
-	public final <T> ServiceReponse<T> handle(CustomerNotFoundException ex, WebRequest request) {
-		return ResponseBuilder.failure(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(BookNotFoundException.class)
-	public final <T> ServiceReponse<T> handle(BookNotFoundException ex, WebRequest request) {
+	@ExceptionHandler(BookShopException.class)
+	public final <T> ServiceReponse<T> handle(BookShopException ex, WebRequest request) {
 		return ResponseBuilder.failure(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
 	}
 

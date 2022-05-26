@@ -23,9 +23,7 @@ import com.bookshop.dto.request.BookRequest;
 import com.bookshop.dto.request.OrderRequest;
 import com.bookshop.dto.response.OrderResponse;
 import com.bookshop.dto.response.PagingResponse;
-import com.bookshop.exception.BookNotFoundException;
 import com.bookshop.exception.BookShopException;
-import com.bookshop.exception.CustomerNotFoundException;
 import com.bookshop.repository.BookRepository;
 import com.bookshop.repository.CustomerRespository;
 import com.bookshop.repository.OrderRepository;
@@ -61,7 +59,7 @@ public class OrderService {
 	public synchronized OrderResponse create(OrderRequest request) {
 
 		Customer customer = customerRespository.findById(request.getCustomerId())
-				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
+				.orElseThrow(() -> new BookShopException("customer.not.found"));
 
 		Map<Integer, Integer> bookQuantityMap = prepareBookQuantityMap(request.getBooks());
 
@@ -114,7 +112,7 @@ public class OrderService {
 
 		bookRequests.forEach(bookRequest -> {
 			Book book = bookRepository.findById(bookRequest.getId())
-					.orElseThrow(() -> new BookNotFoundException("book not found"));
+					.orElseThrow(() -> new BookShopException("book.not.found"));
 			bookQuantityMap.put(book.getId(), book.getQuantity());
 		});
 		return bookQuantityMap;

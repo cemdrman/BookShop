@@ -1,12 +1,16 @@
 package com.bookshop.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
+@Getter
+@Setter
 public class BookShopException extends RuntimeException {
-	
+
+	private static final long serialVersionUID = 3359153536957999615L;
+
 	private String errorMessage;
 
 }

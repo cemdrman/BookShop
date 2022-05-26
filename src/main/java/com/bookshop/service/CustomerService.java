@@ -7,7 +7,7 @@ import com.bookshop.domain.Customer;
 import com.bookshop.dto.request.AuthRequest;
 import com.bookshop.dto.request.CustomerRequset;
 import com.bookshop.dto.response.CustomerResponse;
-import com.bookshop.exception.CustomerNotFoundException;
+import com.bookshop.exception.BookShopException;
 import com.bookshop.exception.LoginFailedException;
 import com.bookshop.repository.CustomerRespository;
 
@@ -22,7 +22,7 @@ public class CustomerService {
 
 	public CustomerResponse getById(Integer id) {
 		Customer customer = customerRespository.findById(id)
-				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
+				.orElseThrow(() -> new BookShopException("customer.not.found"));
 
 		return converter.convert(customer);
 	}
@@ -34,7 +34,7 @@ public class CustomerService {
 
 	public Customer login(AuthRequest request) {
 		Customer customer = customerRespository.findByEmail(request.getEmail())
-				.orElseThrow(() -> new CustomerNotFoundException("customer not found"));
+				.orElseThrow(() -> new BookShopException("customer.not.found"));
 
 		if (!customer.getPassword().equals(request.getPassword())) {
 			throw new LoginFailedException("email or password are wrong");

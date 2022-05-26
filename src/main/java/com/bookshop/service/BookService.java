@@ -12,7 +12,7 @@ import com.bookshop.domain.Book;
 import com.bookshop.dto.request.UpdateBookRequest;
 import com.bookshop.dto.response.BookResponse;
 import com.bookshop.dto.response.PaginationBookResponse;
-import com.bookshop.exception.BookNotFoundException;
+import com.bookshop.exception.BookShopException;
 import com.bookshop.repository.BookRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -49,14 +49,14 @@ public class BookService {
 
 	public BookResponse getById(Integer id) {
 
-		Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new BookShopException("book.not.found"));
 
 		return converter.convert(book);
 	}
 
 	public BookResponse update(Integer id, UpdateBookRequest request) {
 
-		Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new BookShopException("book.not.found"));
 
 		book.setQuantity(request.getQuantity());
 
