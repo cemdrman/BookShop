@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookshop.converter.BookConverter;
 import com.bookshop.domain.Book;
+import com.bookshop.dto.request.UpdateBookRequest;
 import com.bookshop.dto.response.BookResponse;
 import com.bookshop.dto.response.PaginationBookResponse;
 import com.bookshop.exception.BookNotFoundException;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BookService {
 
-	private final BookRepository repository;
+	private final BookRepository bookRepository;
 	private final BookConverter converter;
 
 	@Value(value = "${paging.size}")
@@ -30,7 +31,7 @@ public class BookService {
 
 		size = size == 0 ? defaultSize : size;
 
-		Page<Book> books = repository.findAll(PageRequest.of(page, size));
+		Page<Book> books = bookRepository.findAll(PageRequest.of(page, size));
 
 		List<BookResponse> bookResponse = converter.convert(books);
 
@@ -48,7 +49,18 @@ public class BookService {
 
 	public BookResponse getById(Integer id) {
 
-		Book book = repository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+
+		return converter.convert(book);
+	}
+
+	public BookResponse update(Integer id, UpdateBookRequest request) {
+
+		Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("book not found"));
+
+		book.setQuantity(request.getQuantity());
+
+		bookRepository.save(book);
 
 		return converter.convert(book);
 	}
