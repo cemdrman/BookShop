@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,7 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.addFilterBefore(new AuthenticationTokenFilter(authenticationService, authenticationEntryPoint), UsernamePasswordAuthenticationFilter.class)
-			//.addFilterAfter(, AccessDeniedExceptionFilter.class)
 			.authorizeHttpRequests().anyRequest().authenticated();
 		// @formatter:on
 
@@ -44,9 +42,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		List<String> ignore = Arrays.asList("/", "/auth", "/customers");
+
+		//// @formatter:off
+		List<String> ignore = Arrays.asList("/",
+				"/auth", 
+				"/customers" ,
+				"/swagger-ui.html",
+				"/webjars/**",
+				"/v2/**",
+				"/swagger",
+				"/swagger/**",
+				"/configuration/ui",
+				"/configuration/security",
+				"/swagger-resource/**");
 		web.ignoring().antMatchers(ignore.toArray(new String[] {}));
-		//web.ignoring().antMatchers(HttpMethod.POST, "/customers");
+		// @formatter:on
+
 	}
 
 }
