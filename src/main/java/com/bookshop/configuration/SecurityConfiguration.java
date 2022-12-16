@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private final AuthenticationService authenticationService;
+	private final HttpAuthenticationEntryPoint authenticationEntryPoint;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -34,7 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.addFilterBefore(new AuthenticationTokenFilter(authenticationService), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new AuthenticationTokenFilter(authenticationService, authenticationEntryPoint), UsernamePasswordAuthenticationFilter.class)
+			//.addFilterAfter(, AccessDeniedExceptionFilter.class)
 			.authorizeHttpRequests().anyRequest().authenticated();
 		// @formatter:on
 
@@ -42,9 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		List<String> ignore = Arrays.asList("/", "/auth");
+		List<String> ignore = Arrays.asList("/", "/auth", "/customers");
 		web.ignoring().antMatchers(ignore.toArray(new String[] {}));
-		web.ignoring().antMatchers(HttpMethod.POST, "/customers");
+		//web.ignoring().antMatchers(HttpMethod.POST, "/customers");
 	}
 
 }

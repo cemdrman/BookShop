@@ -1,6 +1,8 @@
 package com.bookshop.exception;
 
-public class AuthenticationFailedException extends BookShopException {
+import org.springframework.security.core.AuthenticationException;
+
+public class AuthenticationFailedException extends AuthenticationException {
 
 	private static final long serialVersionUID = -4058854154965616762L;
 

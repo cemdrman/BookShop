@@ -1,6 +1,7 @@
 package com.bookshop.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,6 +25,11 @@ public class BookShopExceptionHandler {
 	@ExceptionHandler(LoginFailedException.class)
 	public final <T> ServiceReponse<T> handle(LoginFailedException ex, WebRequest request) {
 		return ResponseBuilder.failure(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	public final <T> ServiceReponse<T> handle(AccessDeniedException ex, WebRequest request) {
+		return ResponseBuilder.failure(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 }
