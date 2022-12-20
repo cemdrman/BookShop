@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "11ce397b-4702-4218-8ffd-58b3515b5509",
+		"name": "bookstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "339608"
+	},
+	"item": [
+		{
+			"name": "saveCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"cem\",\n    \"surname\":\"dirman\",\n    \"email\":\"cemdrman@gmail.com\",\n    \"password\":\"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllBooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLTUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKlKwMzUxNDEwsTY0MdZQyE0ugAsYW5kaGtQD_d294RwAAAA.w12VI94Gr-pLiCkxrMbkbyrJUW4vKJ4vky-mqJkq1jhc5Op-5lBExjWd2KOD1-KQ90oPLoaMD0Y4g1mPEPR7QQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/books?page=1&size=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder_customerNotFoundException",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLUUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKgIrMTI1NjY0NTU11lDITS6ACRkbGpqa1AJexRqZHAAAA.zllyaPDSW5Wgr8RY1U0boYXdvcMBC8zgjrBuZiLogg0LDACLrj6nBIvNRcUqsSAAv3nQo4UvDcnjVc5KFsXNdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": 38,\n    \"books\":[\n        {\n            \"bookId\":1,\n            \"name\":\"name\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLTUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKlKwMzUyNzQyNjcyBqjMTS6ACBkYm5ma1ACINY_xHAAAA.tUmnpEFpgIZPdnshLCl6UFV1yAYWITEM2o5aJ9ImXJzwzhC7D01J7vvMreLT1t_JPmeDB799BbcpSWYXGhlLGg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": 1,\n    \"books\":[\n        {\n            \"id\":1,\n            \"name\":\"book2\",\n            \"quantity\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"cemdrman@gmail.com\",\n    \"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findBookById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLUUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKgIrMTI1NjY0NTU11lDITS6ACRkbGpqa1AJexRqZHAAAA.zllyaPDSW5Wgr8RY1U0boYXdvcMBC8zgjrBuZiLogg0LDACLrj6nBIvNRcUqsSAAv3nQo4UvDcnjVc5KFsXNdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwiZW1haWwiOiJjZW1kcm1hbkBnbWFpbC5jb20iLCJleHAiOjE2NTM1MzA4MDAsImlhdCI6MTY1MzUyMDAwMH0.j3CWORN8wb2YlOYw6UHx-nXKCNUWGntcH49seNLekuzipA2Je6CuKAwDhVHMYSjY3SxMh6d08NRMUQLpElnsWQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllOrders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLUUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKgIrMTI1NjY0NTU11lDITS6ACRkbGpqa1AJexRqZHAAAA.zllyaPDSW5Wgr8RY1U0boYXdvcMBC8zgjrBuZiLogg0LDACLrj6nBIvNRcUqsSAAv3nQo4UvDcnjVc5KFsXNdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customers'_offers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWykxRsjLUUUrNTczMUbJSSk7NTSnKTcxzSAcJ6CXn5yoBJSsKgIrMTI1NjY0NTU11lDITS6ACRkbGpqa1AJexRqZHAAAA.zllyaPDSW5Wgr8RY1U0boYXdvcMBC8zgjrBuZiLogg0LDACLrj6nBIvNRcUqsSAAv3nQo4UvDcnjVc5KFsXNdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/customers/1/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
